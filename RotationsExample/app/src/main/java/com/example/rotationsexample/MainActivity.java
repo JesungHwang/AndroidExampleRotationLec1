@@ -66,4 +66,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(startActivityAgain);
         Log.d(tag,"Next Button Pressed");
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        detectDevice();
+        appendTime();
+        Log.d(tag,"onResume()");
+    }
 }
