@@ -9,16 +9,33 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-
+    public final static String tag = "==MainActivity==";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        Log.d(tag, "onCreate");
+        detectDevice();
+    }
+    public void detectDevice() {
+        TextView orientation = findViewById(R.id.orientation);
+        TextView layout = findViewById(R.id.layout);
+        // lookup the display object, figure out if the phone
+        // is in portrait or landscape mode.
+        String rot = "";
+        Display display = getDisplay();
+        if (display.getRotation() == Surface.ROTATION_0 ||
+                display.getRotation() == Surface.ROTATION_180) {
+            rot = "Portrait ";
+        } else {
+            rot = "Landscape";
+        }
+        orientation.setText(rot);
+        // get the metrics object to look up the dimensions of
+        // the display in pixels. A rect object provides the details
+        WindowMetrics metrics = getWindowManager().getCurrentWindowMetrics();
+        Rect r = metrics.getBounds();
+        layout.setText(" height = " + (r.bottom - r.top) + " width = " +
+                (r.right - r.left));
     }
 }
