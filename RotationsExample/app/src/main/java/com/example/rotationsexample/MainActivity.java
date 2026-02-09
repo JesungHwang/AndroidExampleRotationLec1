@@ -60,4 +60,10 @@ public class MainActivity extends AppCompatActivity {
         newStr = newStr.substring(0, ind+1) + formatter.format(date);
         orientation.setText(newStr);
     }
+    public void Next(View view) {
+        Intent startActivityAgain = new Intent(this,
+                MainActivity.class);
+        startActivity(startActivityAgain);
+        Log.d(tag,"Next Button Pressed");
+    }
 }
